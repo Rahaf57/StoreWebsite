@@ -6,13 +6,17 @@ from .models import *
 class CustomersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['customer_id', 'first_name', 'last_name']
+        fields = ['username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
 
-    def validate(self, attrs):
-        unknown = set(self.initial_data) - set(self.fields)
-        if unknown:
-            raise ValidationError("Unknown field(s): {}".format(", ".join(unknown)))
-        return attrs
+    def create(self, validated_data):
+        user = Customer(
+            username=validated_data['username'],
+            email=validated_data['email']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
 
 class ProductsSerializer(serializers.ModelSerializer):
