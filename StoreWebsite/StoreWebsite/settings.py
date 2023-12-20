@@ -27,26 +27,29 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INSTALLED_APPS = [
+   'django.contrib.admin',
+   'django.contrib.auth',
+   'django.contrib.contenttypes',
+   'django.contrib.sessions',
+   'django.contrib.messages',
+   'django.contrib.staticfiles',
+   'rest_framework',
+   'rest_framework.authtoken',
+   'store',
+]
+
+
+AUTH_USER_MODEL = 'store.Customer'
+
+
 REST_FRAMEWORK = {
    'DEFAULT_AUTHENTICATION_CLASSES': [
-       'rest_framework.authentication.BasicAuthentication',
-       'rest_framework.authentication.SessionAuthentication',
-   ]
+       'rest_framework.authentication.TokenAuthentication',
+   ],
+
+
 }
-
-# Application definition
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'store',
-    'rest_framework.authtoken',
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
